@@ -1,0 +1,10 @@
+console.log("these are the constants");
+
+GAME_WIDTH = 1000;
+GAME_HEIGHT = 600;
+PLAYER_SPEED = 300;
+ARENA_POS_X = 200;
+ARENA_POS_Y = 150;
+ARENA_WIDTH = 300;
+ARENA_HEIGHT = 300;
+HIT_BOX_SCALE = 0.5;

@@ -1,0 +1,15 @@
+{
+  "name": "project1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "phaser.js",
+  "dependencies": {
+    "browser-sync": "^2.18.13"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node_modules/browser-sync/bin/browser-sync.js start --server . --files ."
+  },
+  "author": "",
+  "license": "ISC"
+}
