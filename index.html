@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Jitters</title>
+  <title>Tiny Bouncers</title>
   <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
   <link rel="stylesheet" href="./css/style.css">
 </head>
@@ -11,8 +11,17 @@
     <div class="time"></div>
   </div>
   <div id="winner">WINNER!</div>
+  <div class="start-menu">
+    <h2>Instructions</h2>
+    <p>Try to bounce your friends out of the ring.</p>
+    <p>Doux (blue) - moves with arrow keys</p>
+    <p>Mort (red)  - moves with WASD  keys</p>
+    <button type="button" class="start-button">Start</button>
+
+  </div>
   <div id="gameDiv"></div>
   <script src="http://cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
   <script src="./js/constants.js"></script>
   <script src="./js/helpers.js"></script>
   <script src="./js/scores.js"></script>

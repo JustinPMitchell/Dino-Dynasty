@@ -1,5 +1,6 @@
 console.log("this is the helper functions");
 
+//Timer for game
 function startTimer(duration, display) {
     var timer = duration, minutes, seconds;
     setInterval(function () {
@@ -13,6 +14,9 @@ function startTimer(duration, display) {
 
         if (--timer < 0) {
             timer = duration;
+        }
+        else if (timer === 0) {
+          tie();
         }
     }, 1000);
 }

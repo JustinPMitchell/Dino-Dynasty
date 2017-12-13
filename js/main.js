@@ -1,19 +1,60 @@
-console.log("this works");
 
-var game = new Phaser.Game(GAME_WIDTH, GAME_HEIGHT, Phaser.AUTO, "gameDiv",
-  {init:init, preload:preload, create:create, update:update});
+
+var game;
+var players = [];
+var losers = [];
+var winner;
 var bg;
 var music;
-var player;
-var playerR;
+var winAudio;
 var battleArena;
-var directionDoux = "left";
-var directionMort = "right";
 var updateCount = 0;
 var winningState = false;
-// document.getElementById("winner").style.display = "hidden";
+var gameControls = [ [Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT, Phaser.Keyboard.UP, Phaser.Keyboard.DOWN],
+                      [Phaser.Keyboard.A, Phaser.Keyboard.D, Phaser.Keyboard.W, Phaser.Keyboard.S]
+];
 
-function init(){
+//NEED TO RESTART PROPERLY
+function restart() {
+  console.log("This game was restarted.");
+  winningState = false;
+  document.getElementById("winner").style.display = "none";
+
+  //reset music
+  winAudio.pause();
+  music.play();
+
+  //reset characters and animations
+  console.log(players[0].body.position);
+  console.log(players[0]);
+  //players[0].position.x = PLAYER_ONE_INITIAL_POSITION_X;
+  //players[0].position.y = PLAYER_ONE_INITIAL_POSITION_Y;
+  players[0].reset(PLAYER_ONE_INITIAL_POSITION_X, PLAYER_ONE_INITIAL_POSITION_Y);
+  players[1].reset(PLAYER_TWO_INITIAL_POSITION_X, PLAYER_TWO_INITIAL_POSITION_Y);
+  console.log(players[0].body.position);
+  //players[1].position.x = PLAYER_TWO_INITIAL_POSITION_X;
+  //players[1].position.y = PLAYER_TWO_INITIAL_POSITION_Y;
+
+  losers = [];
+  updateCount = 0;
+
+  //reset-time  TO-DO: figure out how to reset time rather than "combine" times
+  document.getElementsByClassName('time')[0].style.display = "inline";
+  startTimer(TIMER_COUNT, document.body.getElementsByClassName('time')[0]);
+
+  //hide reset button TODO: need to make reset button in html
+}
+
+function startGame() {
+  console.log("this button works.");
+  $(".start-menu").slideUp();
+  document.getElementsByClassName("time")[0].style.display = "inline";
+  startTimer(TIMER_COUNT, document.body.getElementsByClassName('time')[0]);
+  game = new Phaser.Game(GAME_WIDTH, GAME_HEIGHT, Phaser.AUTO, "gameDiv",
+    {init:init, preload:preload, create:create, update:update});
+}
+
+function init() {
   game.enterKeyUp = true;
 }
 
@@ -22,153 +63,147 @@ function preload() {
   game.physics.startSystem(Phaser.Physics.ARCADE);
 
   //load image
-  game.load.image("bg", "../assets/img/city.png")
-  game.load.image("playerBlue", "../assets/img/dinoCharactersVersion1.1/gifs/DinoSprites_doux.gif");
-  game.load.image("playerRed", "../assets/img/dinoCharactersVersion1.1/gifs/DinoSprites_mort.gif");
+  game.load.image("bg", "../assets/img/city.png");
   game.load.image("arena", "../assets/img/yellow-gold-circle.png");
 
   //load spritesheets (animations)
   game.load.spritesheet("douxSprite", "../assets/img/dinoCharactersVersion1.1/sheets/DinoSprites-doux.png", 24, 24, 24);
   game.load.spritesheet("mortSprite", "../assets/img/dinoCharactersVersion1.1/sheets/DinoSprites-mort.png", 24, 24, 24);
+  
   //load audio
   game.load.audio("music", "../assets/audio/one_0.mp3");
+  game.load.audio("winAudio", "../assets/audio/Riverside-Ride-Pack/Riverside-Ride.mp3");
+  game.load.audio("hit", "../assets/audio/toy_duck_rubber_squeeze_002.mp3");
 }
 
 function create() {
   //created background and make it scroll
-  bg = game.add.tileSprite(0, 0, GAME_WIDTH, GAME_HEIGHT, "bg");
+  bg = game.add.tileSprite(0, 0, GAME_WIDTH, BG_HEIGHT, "bg");
   bg.autoScroll(-30, 0);
 
   //adds arena
   battleArena = game.add.tileSprite(ARENA_POS_X, ARENA_POS_Y, ARENA_WIDTH, ARENA_HEIGHT, "arena");
-  console.log(battleArena);
-  battleArena.scale.setTo(2, 1.25);
+  battleArena.scale.setTo(ARENA_SCALE_X, ARENA_SCALE_Y);
 
   //set-up sounds and start background music
   music = game.add.audio("music");
   music.play(); //background music
+  winAudio = game.add.audio("winAudio");
+  hit = game.add.audio("hit");
 
-  //create doux
-  doux = game.add.sprite(ARENA_POS_X + (2 * ARENA_WIDTH) - 50, ARENA_POS_Y + (0.5 * ARENA_HEIGHT), "douxSprite");
-  doux.scale.setTo(3, 3);
-  doux.animations.add("idleDoux", [0, 1, 2], 12, true);
-  doux.animations.add("walkDoux", [3, 4, 5, 6, 7, 8], 12, true);
-  doux.animations.add("deathDoux", [13, 14], 12, true);
-  doux.animations.add("winDoux", [0, 7], 6, true);
-  doux.animations.play("idleDoux");
-  doux.anchor.setTo(0.5); //Middle
-  game.physics.arcade.enableBody(doux);
-  doux.body.bounce.set(1);
-  doux.body.collideWorldBounds = true;
-  doux.scale.x *= -1;
-  doux.body.width *= HIT_BOX_SCALE;
-  doux.body.height *= HIT_BOX_SCALE;
+  //attempt at creating all characters
+  doux = game.add.sprite(PLAYER_ONE_INITIAL_POSITION_X, PLAYER_ONE_INITIAL_POSITION_Y, "douxSprite");
+  console.log(doux);
+  doux.name = "Doux";
+  players.push(doux);
+  mort = game.add.sprite(PLAYER_TWO_INITIAL_POSITION_X, PLAYER_TWO_INITIAL_POSITION_Y, "mortSprite");
+  mort.name = "Mort";
+  players.push(mort);
 
-  //create mort
-  mort = game.add.sprite(ARENA_POS_X + 50, ARENA_POS_Y + (0.5 * ARENA_HEIGHT), "mortSprite");
-  mort.scale.setTo(3, 3);
-  mort.animations.add("idleMort", [0, 1, 2], 12, true);
-  mort.animations.add("walkMort", [3, 4, 5, 6, 7, 8], 12, true);
-  mort.animations.add("deathMort", [13, 14], 12, true);
-  mort.animations.add("winMort", [0, 7], 6, true);
-  mort.animations.play("idleMort");
-  mort.anchor.setTo(0.5); //Middle
-  game.physics.arcade.enableBody(mort);
-  mort.body.bounce.set(1);
-  mort.body.collideWorldBounds = true;  
-  mort.body.width *= HIT_BOX_SCALE;
-  mort.body.height *= HIT_BOX_SCALE;
-  //keyboard listeners
-  cursors = game.input.keyboard.createCursorKeys();
+  for(var currentPlayer = 0; currentPlayer < players.length; currentPlayer++) {
+    players[currentPlayer].scale.setTo(PLAYER_SCALE, PLAYER_SCALE);
+    players[currentPlayer].animations.add("idle" + players[currentPlayer].name, [0, 1, 2], FRAME_SPEED, true);
+    players[currentPlayer].animations.add("walk" + players[currentPlayer].name, [3, 4, 5, 6, 7, 8], FRAME_SPEED, true);
+    players[currentPlayer].animations.add("death" + players[currentPlayer].name, [13, 14], FRAME_SPEED, true);
+    players[currentPlayer].animations.add("win" + players[currentPlayer].name, [0, 7], HALF_FRAME_SPEED, true);
+    players[currentPlayer].animations.add("running" + players[currentPlayer].name, [17, 18, 19, 20, 21, 22, 23], FRAME_SPEED, true);
+    players[currentPlayer].animations.play("idle" + players[currentPlayer].name);
+    players[currentPlayer].anchor.setTo(HIT_BOX_SCALE); //Middle
+    game.physics.arcade.enableBody(players[currentPlayer]);
+    players[currentPlayer].body.width *= HIT_BOX_SCALE;
+    players[currentPlayer].body.height *= HIT_BOX_SCALE;
+  }
+  //switches direction of one player
+  players[0].scale.x *= SWITCH_DIRECTION;
 }
 
 function update() {
   if (winningState === false) {
-    if (updateCount > 5) {
-      doux.body.velocity.set(0); //stop the player if an arrow key isn't down
-      mort.body.velocity.set(0);
+    console.log(updateCount);
+    console.log(players[0].body.position);
+    //stop the players in stun state 
+    if (updateCount === INITIATE_STUN_COUNT) {
+      for(var currentPlayer = 0; currentPlayer < players.length; currentPlayer++) {
+        players[currentPlayer].animations.play("death" + players[currentPlayer].name);
+        players[currentPlayer].body.velocity.set(0);
+      }
+      updateCount++;
+    }
 
-      //keyboard detection Doux
-      if(cursors.left.isDown) {
-        if(directionDoux === "right") {
-          doux.scale.x *= -1;
+    //characters become unstunned and can move
+    else if (updateCount > END_STUN_COUNT) {
+      //stop the players if an arrow key isn't down
+      for(var currentPlayer = 0; currentPlayer < players.length; currentPlayer++) {
+        players[currentPlayer].body.velocity.set(0);
+      }
+
+      //keyboard controls will update in the array gameControls
+      for(var currentPlayer = 0; currentPlayer < players.length; currentPlayer++) {
+
+        //left control
+        if(game.input.keyboard.isDown(gameControls[currentPlayer][0])) {
+          if(players[currentPlayer].scale.x > 0) {
+            players[currentPlayer].scale.x *= SWITCH_DIRECTION;
+          }
+          players[currentPlayer].body.velocity.x = -PLAYER_SPEED;
+          players[currentPlayer].animations.play("walk" + players[currentPlayer].name);
         }
 
-        directionDoux = "left";
-        doux.body.velocity.x = -PLAYER_SPEED;
-        doux.animations.play("walkDoux");
-      } 
-      else if(cursors.right.isDown) {
-        if(directionDoux === "left") {
-          doux.scale.x *= -1;
+        //right control
+        else if(game.input.keyboard.isDown(gameControls[currentPlayer][1])) {
+          if(players[currentPlayer].scale.x < 0) {
+            players[currentPlayer].scale.x *= SWITCH_DIRECTION;
+          }
+          players[currentPlayer].body.velocity.x = PLAYER_SPEED;
+          players[currentPlayer].animations.play("walk" + players[currentPlayer].name);
         }
 
-        directionDoux = "right";
-
-        doux.body.velocity.x = PLAYER_SPEED;
-        doux.animations.play("walkDoux");
-      }
-
-      if(cursors.up.isDown) {
-        doux.body.velocity.y = -PLAYER_SPEED;
-        doux.animations.play("walkDoux");
-      }
-      else if(cursors.down.isDown) {
-        doux.body.velocity.y = PLAYER_SPEED;
-        doux.animations.play("walkDoux");
-      }
-
-      if(cursors.left.isUp && cursors.right.isUp && cursors.up.isUp && cursors.down.isUp) {
-        doux.animations.play("idleDoux");
-      }
-
-      //keyboard detection Mort
-      if(game.input.keyboard.isDown(Phaser.Keyboard.A)) {
-        if(directionMort === "right") {
-          mort.scale.x *= -1;
+        //up control
+        if(game.input.keyboard.isDown(gameControls[currentPlayer][2])) {
+          players[currentPlayer].body.velocity.y = -PLAYER_SPEED;
+          players[currentPlayer].animations.play("walk" + players[currentPlayer].name);
         }
 
-        directionMort = "left";
-        mort.body.velocity.x = -PLAYER_SPEED;
-        mort.animations.play("walkMort");
-      }
-      else if(game.input.keyboard.isDown(Phaser.Keyboard.D)) {
-        if(directionMort === "left") {
-          mort.scale.x *= -1;
+        //down control
+        else if(game.input.keyboard.isDown(gameControls[currentPlayer][3])) {
+          players[currentPlayer].body.velocity.y = PLAYER_SPEED;
+          players[currentPlayer].animations.play("walk" + players[currentPlayer].name);
         }
 
-        directionMort = "right";
-
-        mort.body.velocity.x = PLAYER_SPEED;
-        mort.animations.play("walkMort");
-      }
-
-      if(game.input.keyboard.isDown(Phaser.Keyboard.W)) {
-        mort.body.velocity.y = -PLAYER_SPEED;
-        mort.animations.play("walkMort");
-      }
-      else if(game.input.keyboard.isDown(Phaser.Keyboard.S)) {
-        mort.body.velocity.y = PLAYER_SPEED;
-        mort.animations.play("walkMort");
-      }
-
-      if(!(game.input.keyboard.isDown(Phaser.Keyboard.A)) && !(game.input.keyboard.isDown(Phaser.Keyboard.D)) && !(game.input.keyboard.isDown(Phaser.Keyboard.W)) && !(game.input.keyboard.isDown(Phaser.Keyboard.S))) {
-        mort.animations.play("idleMort");
+        //idle control
+        if(!(game.input.keyboard.isDown(gameControls[currentPlayer][0])) 
+          && !(game.input.keyboard.isDown(gameControls[currentPlayer][1])) 
+          && !(game.input.keyboard.isDown(gameControls[currentPlayer][2])) 
+          && !(game.input.keyboard.isDown(gameControls[currentPlayer][3]))) {
+          players[currentPlayer].animations.play("idle" + players[currentPlayer].name);
+        }
       }
     }
+    
     //collision detection
-    game.physics.arcade.collide(doux, mort, bounceCollision, null, this);
+    for(var firstCheck = 0; firstCheck < players.length; firstCheck++) {
+      for(var secondCheck = 1; secondCheck < players.length; secondCheck++) {
+        game.physics.arcade.collide(players[firstCheck], players[secondCheck], bounceCollision, null, this);
+      }
+      // if(players[firstCheck].body.position.x < OUT_OF_BOUNDS_X_LEFT 
+      //   || players[firstCheck].body.position.x > OUT_OF_BOUNDS_X_RIGHT 
+      //   || players[firstCheck].body.position.y > OUT_OF_BOUNDS_Y_TOP 
+      //   || players[firstCheck].body.position.y < OUT_OF_BOUNDS_Y_BOTTOM) {
+      //   loser = players[firstCheck];
+      //   loses(loser);
+      //   console.log("someone lost");
+      // }
+      if(arenaCollision(players[firstCheck], battleArena)) {
+        loser = players[firstCheck];
+        loses(loser);
+        console.log("someone lost");
+      }
+    }
+
     updateCount++;
   }
-  //kills characters when out of arena
-  if(doux.body.position.x < (ARENA_POS_X - 50) || doux.body.position.x > (ARENA_POS_X + (2 * ARENA_WIDTH) + 50) || doux.body.position.y > (ARENA_POS_Y + (2 * ARENA_HEIGHT)) || doux.body.position.y < (ARENA_POS_Y)) {
-    mortWins();
-  }
-  if(mort.body.position.x < (ARENA_POS_X - 50) || mort.body.position.x > (ARENA_POS_X + (2 * ARENA_WIDTH) + 50) || mort.body.position.y > (ARENA_POS_Y + (2 * ARENA_HEIGHT)) || mort.body.position.y < (ARENA_POS_Y)) {
-    douxWins();
-  }
-
- 
 }
 
-startTimer(180, document.body.getElementsByClassName('time')[0]);
+
+
+document.getElementsByClassName("start-button")[0].addEventListener("click", startGame);
