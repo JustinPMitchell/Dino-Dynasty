@@ -6,18 +6,31 @@
   <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-  <div class="score-frame"></div>
+  <div class="score-frame">
+    <div  class="score-board">
+      <img src="./assets/img/dinoCharactersVersion1.1/gifs/DinoSprites_doux.gif" alt="blue dino" class="score-sprite">
+      <img src="./assets/img/dinoCharactersVersion1.1/gifs/DinoSprites_mort.gif" alt="blue dino" class="score-sprite">
+      <div class="score-count">0</div>
+      <div class="score-count">0</div>
+    </div>
+  </div>
   <div class="time-frame">
     <div class="time"></div>
   </div>
-  <div id="winner">WINNER!</div>
   <div class="start-menu">
     <h2>Instructions</h2>
     <p>Try to bounce your friends out of the ring.</p>
     <p>Doux (blue) - moves with arrow keys</p>
     <p>Mort (red)  - moves with WASD  keys</p>
     <button type="button" class="start-button">Start</button>
-
+  </div>
+  <div class="winning-menu">
+    <div class="winner-title">WINNER</div>
+    <div class="current-winner"></div>
+    <div class="high-score-title">High-Score</div>
+    <div class="high-score"></div>
+    <div class="second-title">2nd</div>
+    <button type="button" class="restart-button">Restart</button>
   </div>
   <div id="gameDiv"></div>
   <script src="http://cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>

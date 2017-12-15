@@ -17,6 +17,27 @@ h2 {
   height: 20px;
 }
 
+.score-board {
+  width: 90px;
+  height: 50px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.score-sprite {
+  width: 30px;
+  height: 30px;
+}
+
+.score-count {
+  width: 30px;
+  height: 30px;
+  display: inline;
+  margin:  10px;
+  color: white;
+}
+
 .time-frame {
   background-color: white;
   border: 3px solid black;
@@ -33,25 +54,60 @@ h2 {
 .start-menu {
   width: 1000px;
   height: 600px;
-  background-color: rgba(256, 256, 256, .5);
   border: 3px solid black;
   margin: 0 10%;
   position: absolute;
 }
 
-#winner {
-  display: none;
-  float: both;
-  background-color: white;
+.winning-menu {
+  width: 1000px;
+  height: 600px;
   border: 3px solid black;
+  margin: 0 10%;
   position: absolute;
-  left: 46%;
-  top: 40%;
-  padding: 5px;
+  display: none;
+}
+
+.winner-title {
+  position: absolute;
+  left: 20%;
+  top: 20%;
+  font-size: 40px;
+}
+
+.current-winner {
+  position: absolute;
+  left: 25%;
+  top: 30%;
+  font-size: 40px;
+}
+
+.high-score-title {
+  position: absolute;
+  left: 40%;
+  top: 60%;
+  font-size: 40px;
+}
+
+.high-score {
+  position: absolute;
+  left: 48%;
+  top: 70%;
+  font-size: 40px;
+}
+
+.second-title {
+  background-color: rgba(150, 150, 20, .5);
+  border: 3px solid black;
+  padding: 0 3% 0 12%;
+  position: absolute;
+  left: 78%;
+  top: 30%;
+  font-size: 40px;
 }
 
 #gameDiv {
-  margin: 0 auto;
+  margin: 0 10%;
   border: 3px solid black;
 }
 
