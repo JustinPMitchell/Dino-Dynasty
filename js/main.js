@@ -71,23 +71,23 @@ function preload() {
   game.physics.startSystem(Phaser.Physics.ARCADE);
 
   //load image
-  game.load.image("bg", "../assets/img/city.png");
-  game.load.image("winBg", "../assets/img/win-background.jpg");
-  game.load.image("arena", "../assets/img/yellow-gold-circle.png");
-  game.load.image("rectangle1", "../assets/img/Orange_Rectangle_body.png");
-  game.load.image("rectangle2", "../assets/img/Orange_Rectangle_body.png");
+  game.load.image("bg", "./assets/img/city.png");
+  game.load.image("winBg", "./assets/img/win-background.jpg");
+  game.load.image("arena", "./assets/img/yellow-gold-circle.png");
+  game.load.image("rectangle1", "./assets/img/Orange_Rectangle_body.png");
+  game.load.image("rectangle2", "./assets/img/Orange_Rectangle_body.png");
 
   //load spritesheets (animations)
-  game.load.spritesheet("douxSprite", "../assets/img/dinoCharactersVersion1.1/sheets/DinoSprites-doux.png", 24, 24, 24);
-  game.load.spritesheet("mortSprite", "../assets/img/dinoCharactersVersion1.1/sheets/DinoSprites-mort.png", 24, 24, 24);
-  game.load.spritesheet("yellowFirework", "../assets/img/Fireworks/yellowshot.png", 42, 42, 8);
-  game.load.spritesheet("redFirework", "../assets/img/Fireworks/redshot.png", 42, 42, 8);
-  game.load.spritesheet("blueFirework", "../assets/img/Fireworks/blueshot.png", 42, 42, 8);
+  game.load.spritesheet("douxSprite", "./assets/img/dinoCharactersVersion1.1/sheets/DinoSprites-doux.png", 24, 24, 24);
+  game.load.spritesheet("mortSprite", "./assets/img/dinoCharactersVersion1.1/sheets/DinoSprites-mort.png", 24, 24, 24);
+  game.load.spritesheet("yellowFirework", "./assets/img/Fireworks/yellowshot.png", 42, 42, 8);
+  game.load.spritesheet("redFirework", "./assets/img/Fireworks/redshot.png", 42, 42, 8);
+  game.load.spritesheet("blueFirework", "./assets/img/Fireworks/blueshot.png", 42, 42, 8);
 
   //load audio
-  game.load.audio("music", "../assets/audio/Waiting-for-something.mp3");
-  game.load.audio("winAudio", "../assets/audio/8-Bit-Sound-Library/Mp3/Jingle_Win_00.mp3");
-  game.load.audio("hit", "../assets/audio/toy_duck_rubber_squeeze_002.mp3");
+  game.load.audio("music", "./assets/audio/Waiting-for-something.mp3");
+  game.load.audio("winAudio", "./assets/audio/8-Bit-Sound-Library/Mp3/Jingle_Win_00.mp3");
+  game.load.audio("hit", "./assets/audio/toy_duck_rubber_squeeze_002.mp3");
 }
 
 function create() {
