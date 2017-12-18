@@ -82,6 +82,13 @@ h2 {
   font-size: 40px;
 }
 
+.tie-title {
+  position: absolute;
+  left: 40%;
+  top: 30%;
+  font-size: 40px;
+}
+
 .high-score-title {
   position: absolute;
   left: 40%;
