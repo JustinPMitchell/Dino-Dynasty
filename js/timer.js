@@ -25,6 +25,27 @@ function startTimer() {
   else if (timer === 57) {
     clearInterval(rotateStage);
   }
+  else if (timer === 53) {
+    rotateStageRight = setInterval(scaleRotateRight, 1);
+  }
+  else if(timer === 51) {
+    clearInterval(rotateStageRight);
+  }
+  else if (timer === 49) {
+    rotateStageRight = setInterval(scaleRotateRight, 1);
+  }
+  else if (timer === 47) {
+    clearInterval(rotateStageRight);
+  }
+  else if (timer === 43) {
+    rotateStage = setInterval(scaleRotate, 1);
+  }
+  else if (timer === 41) {
+    clearInterval(rotateStage);
+  }
+  else if (timer === 30) {
+    rotateContinuous = setInterval(rotateLeftWithoutRectangles, 1);
+  }
 }
 
 /*

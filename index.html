@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Tiny Bouncers</title>
+  <title>Dino Dynasty</title>
   <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
   <link rel="stylesheet" href="./css/style.css">
 </head>
@@ -18,11 +18,34 @@
     <div class="time"></div>
   </div>
   <div class="start-menu">
-    <h2>Instructions</h2>
-    <p>Try to bounce your friends out of the ring.</p>
-    <p>Doux (blue) - moves with arrow keys</p>
-    <p>Mort (red)  - moves with WASD  keys</p>
-    <button type="button" class="start-button">Start</button>
+    <h2 class="game-title">DINO DYNASTY</h2>
+    <div class="start-menu-text">
+      <audio autoplay loop class="menu-music">
+        <source src="./assets/audio/Loop-Menu.wav"></source>
+        Your browser does not support the audio element.
+      </audio>
+      <audio class="title-jingle">
+        <source src="./assets/audio/8-Bit-Sound-Library/Mp3/Hit_00.mp3"></source>
+        Your browser does not support the audio element.
+      </audio>
+      <audio class="menu-jingle">
+        <source src="./assets/audio/8-Bit-Sound-Library/Mp3/Menu_Navigate_03.mp3"></source>
+        Your browser does not support the audio element.
+      </audio>
+      <div class="sliding-background"></div>
+      <button type="button" class="start-button button">Play</button>
+      <button type="button" class="instructions-button button">Instructions</button>
+      <button type="button" class="options-button button">Options</button>
+    </div>
+    <div class="instructions">
+      <h2>Instructions</h2>
+      <p>Try to bounce your friends out of the ring.</p>
+      <p>Doux (blue) - moves with arrow keys</p>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - kicks with shift key</p>
+      <p>Mort (red)  - moves with WASD  keys</p>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - kicks with E key</p>
+      <button class="exit-instructions-button button">Understood</button>
+    </div>
   </div>
   <div class="winning-menu">
     <div class="winner-title">WINNER</div>
@@ -41,7 +64,6 @@
   <script src="./js/timer.js"></script>
   <script src="./js/fireworks.js"></script>
   <script src="./js/rotations.js"></script>
-  <script src="./js/helpers.js"></script>
   <script src="./js/scores.js"></script>
   <script src="./js/items.js"></script>
   <script src="./js/collisions.js"></script>

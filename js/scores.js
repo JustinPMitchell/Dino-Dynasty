@@ -45,9 +45,20 @@ function wins() {
   //winner animation
   winner.body.velocity.set(0);
   winner.animations.play("idle" + winner.name);
-  winner.body.position.set(PLAYER_WINNING_POSITION_X, PLAYER_WINNING_POSITION_Y);
-  winner.scale.setTo(PLAYER_WINNING_SCALE, PLAYER_WINNING_SCALE);
-  winner.angle = 90;
+  winner.alpha = 0;
+
+  //creates new sprite to animate
+  winnerName = winner.name.toLowerCase() + "Sprite";
+  winnerNew = game.add.sprite(PLAYER_WINNING_POSITION_X, PLAYER_WINNING_POSITION_Y, winnerName);
+  winnerNew.animations.add("idle" + winnerName, [0, 1, 2], FRAME_SPEED, true);
+  winnerNew.animations.play("idle" + winnerName);
+  game.physics.arcade.enableBody(winnerNew);
+  winnerNew.anchor.setTo(HIT_BOX_SCALE); //Middle
+  winnerNew.body.width *= HIT_BOX_SCALE;
+  winnerNew.body.height *= HIT_BOX_SCALE;
+  winnerNew.angle = 90;
+  winnerNew.scale.setTo(PLAYER_WINNING_SCALE, PLAYER_WINNING_SCALE);
+
 
   //high score
   if(localStorage.highScore === undefined) {
@@ -61,6 +72,8 @@ function wins() {
   //removes clock and stops stage rotation
   document.body.getElementsByClassName("time")[0].style.display = "none";
   clearInterval(rotateStage);
+  clearInterval(rotateStageRight);
+  clearInterval(rotateContinuous);
   stopTimer();
 
   //winning menu appears
@@ -69,6 +82,8 @@ function wins() {
   document.getElementsByClassName("winner-title")[0].style.display = "inline";
   document.getElementsByClassName("current-winner")[0].style.display = "inline";
   document.getElementsByClassName("second-title")[0].style.display = "inline";
+  document.getElementsByClassName("high-score-title")[0].style.display = "inline";
+  document.getElementsByClassName("high-score")[0].style.display = "inline";
   document.getElementsByClassName("tie-title")[0].style.display = "none";
   winBg.revive();
   music.pause();
@@ -96,14 +111,20 @@ function tie() {
   //removes clock and stops stage rotation
   document.body.getElementsByClassName("time")[0].style.display = "none";
   clearInterval(rotateStage);
+  clearInterval(rotateStageRight);
+  clearInterval(rotateContinuous);
   stopTimer();
 
   //winning menu appears
-  winningState = true;
   document.getElementsByClassName("winner-title")[0].style.display = "none";
   document.getElementsByClassName("current-winner")[0].style.display = "none";
   document.getElementsByClassName("second-title")[0].style.display = "none";
+  document.getElementsByClassName("high-score-title")[0].style.display = "none";
+  document.getElementsByClassName("high-score")[0].style.display = "none";
   document.getElementsByClassName("tie-title")[0].style.display = "inline";
   $(".winning-menu").fadeIn();
   winBg.revive();
+  music.pause();
+  loseAudio.play();
+  winningState = true;
 }

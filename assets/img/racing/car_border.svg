@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="256"
+   height="256"
+   id="svg4039"
+   version="1.1"
+   inkscape:version="0.46+devel r22559"
+   sodipodi:docname="car_border.svg"
+   inkscape:export-filename="/home/james/programs/racer/svn_root/trunk/racer/data/ui/car_border.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4041">
+    <linearGradient
+       id="linearGradient4128">
+      <stop
+         style="stop-color:#fe0000;stop-opacity:1;"
+         offset="0"
+         id="stop4130" />
+      <stop
+         style="stop-color:#930000;stop-opacity:1;"
+         offset="1"
+         id="stop4132" />
+    </linearGradient>
+    <filter
+       id="filter4081"
+       inkscape:label="Refractive gel A"
+       inkscape:menu="Ridges"
+       inkscape:menu-tooltip="Gel effect with light refraction"
+       height="1.032258"
+       width="1.032258"
+       y="-0.016129032"
+       x="-0.016129032"
+       color-interpolation-filters="sRGB">
+      <feOffset
+         id="feOffset4083"
+         dx="7"
+         dy="7"
+         in="SourceAlpha"
+         result="result3" />
+      <feGaussianBlur
+         id="feGaussianBlur4085"
+         stdDeviation="8"
+         in="result3"
+         result="result1" />
+      <feComposite
+         id="feComposite4087"
+         in2="result1"
+         operator="in"
+         in="SourceGraphic"
+         result="result2" />
+      <feComposite
+         id="feComposite4089"
+         in2="result2"
+         operator="out"
+         result="fbSourceGraphic"
+         in="result2" />
+      <feColorMatrix
+         id="feColorMatrix4091"
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0 0 0 0 4 0 " />
+      <feGaussianBlur
+         id="feGaussianBlur4093"
+         result="result0"
+         in="fbSourceGraphicAlpha"
+         stdDeviation="2" />
+      <feSpecularLighting
+         id="feSpecularLighting4095"
+         specularExponent="20"
+         specularConstant="1.20000005"
+         surfaceScale="3"
+         lighting-color="#ffffff"
+         result="result1"
+         in="result0">
+        <feDistantLight
+           id="feDistantLight4097"
+           azimuth="235"
+           elevation="45" />
+      </feSpecularLighting>
+      <feComposite
+         id="feComposite4099"
+         in2="fbSourceGraphicAlpha"
+         operator="in"
+         result="result2"
+         in="result1" />
+      <feComposite
+         id="feComposite4101"
+         in2="result2"
+         in="fbSourceGraphic"
+         operator="arithmetic"
+         k2="2"
+         k3="2"
+         result="result91"
+         k1="0"
+         k4="0" />
+      <feBlend
+         id="feBlend4103"
+         in2="result91"
+         mode="multiply" />
+    </filter>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4128"
+       id="radialGradient4134"
+       cx="128"
+       cy="128"
+       fx="128"
+       fy="128"
+       r="120"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-1.0666667,1.0666668,-1.0666668,-1.0666666,401.06668,127.99996)" />
+    <filter
+       inkscape:collect="always"
+       id="filter4154">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="3.36"
+         id="feGaussianBlur4156" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="248.8811"
+     inkscape:cy="164.53614"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:window-width="1280"
+     inkscape:window-height="953"
+     inkscape:window-x="1280"
+     inkscape:window-y="25"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid4049" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata4044">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-796.36218)">
+    <g
+       id="g4158">
+      <rect
+         ry="32"
+         rx="32"
+         transform="translate(0,796.36218)"
+         y="8"
+         x="8"
+         height="240"
+         width="240"
+         id="rect4126"
+         style="fill:url(#radialGradient4134);fill-opacity:1;stroke:none;stroke-width:15.99999962000000053;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none" />
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:3.99999976000000013;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter4154)"
+         id="rect4136"
+         width="224"
+         height="224"
+         x="16"
+         y="812.36218"
+         rx="24"
+         ry="23.999998" />
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:15.99999962;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect4053"
+         width="240"
+         height="240"
+         x="8"
+         y="8"
+         transform="translate(0,796.36218)"
+         rx="32"
+         ry="32" />
+      <rect
+         ry="32"
+         rx="32"
+         transform="translate(0,796.36218)"
+         y="8"
+         x="8"
+         height="240"
+         width="240"
+         id="rect4051"
+         style="fill:none;fill-opacity:1;stroke:#ff0000;stroke-width:12;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-linecap:butt;filter:url(#filter4081)" />
+    </g>
+  </g>
+</svg>

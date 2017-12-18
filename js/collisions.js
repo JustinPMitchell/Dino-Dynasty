@@ -4,7 +4,7 @@
 //characters bounce in opposite direction
 */
 function bounceCollision(player1, player2) {
-  updateCount = 0;
+  updateCount = 182;
   //calculates direction of bounce after collision
   var xDiff = player2.position.x - player1.position.x;
   var yDiff = player2.position.y - player1.position.y;
@@ -44,7 +44,7 @@ function arenaCollision(player, arena) {
 //kicker players velocity is set to 0
 */
 function kickCollision(player1, player2) {
-  updateCount = 0;
+  updateCount = 180;
   //calculates direction of bounce after collision
   var xDiff = player2.position.x - player1.position.x;
   var yDiff = player2.position.y - player1.position.y;

@@ -5,6 +5,7 @@ var winner;
 var bg;
 var music;
 var winAudio;
+var loseAudio;
 var arena;
 var rightRectangle;
 var leftRectangle;
@@ -14,21 +15,37 @@ var gameControls = [ [Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT, Phaser.Keyboa
                       [Phaser.Keyboard.A, Phaser.Keyboard.D, Phaser.Keyboard.W, Phaser.Keyboard.S, Phaser.Keyboard.E]
 ];
 var rotateStage;
+var rotateStageRight;
+var rotateContinuous;
 var focusOne = {x:FOCUS_ONE_X, y:FOCUS_ONE_Y};
 var focusTwo = {x:FOCUS_TWO_X, y:FOCUS_TWO_Y};
 var rectangleScaler = 1;
 var initiateTimer;
 var timer = TIMER_COUNT, minutes, seconds;
+var winnerNew;
+var countDownStart;
+
+//sounds for start menu
+var titleJingle = $(".title-jingle")[0];
+$(".game-title").mouseenter(function() {
+  titleJingle.play();
+});
+var menuJingle = $(".menu-jingle")[0];
+$(".button").mouseenter(function() {
+  menuJingle.play();
+});
 
 /*
-//removes start menu
+//removes start menu and stops music
 //displays time
 //starts game
 */
 function startGame() {
   console.log("this button works.");
   $(".start-menu").fadeOut();
-  initiateTimer = setInterval(startTimer, 1000);
+  $(".time-frame").slideDown();
+  $(".score-frame").slideDown();
+  document.body.getElementsByClassName("menu-music")[0].pause();
   game = new Phaser.Game(GAME_WIDTH, GAME_HEIGHT, Phaser.AUTO, "gameDiv",
     {init:init, preload:preload, create:create, update:update});
 }
@@ -63,12 +80,16 @@ function preload() {
   game.load.spritesheet("yellowFirework", "./assets/img/Fireworks/yellowshot.png", 42, 42, 8);
   game.load.spritesheet("redFirework", "./assets/img/Fireworks/redshot.png", 42, 42, 8);
   game.load.spritesheet("blueFirework", "./assets/img/Fireworks/blueshot.png", 42, 42, 8);
+  game.load.spritesheet("countDownSprite", "./assets/img/racing/countdown.png", 255, 200, 4);
 
   //load audio
   game.load.audio("music", "./assets/audio/Waiting-for-something.mp3");
   game.load.audio("winAudio", "./assets/audio/8-Bit-Sound-Library/Mp3/Jingle_Win_00.mp3");
+  game.load.audio("loseAudio", "./assets/audio/8-Bit-Sound-Library/Mp3/Jingle_Lose_00.mp3");
   game.load.audio("hit", "./assets/audio/toy_duck_rubber_squeeze_002.mp3");
   game.load.audio("fireworkBang", "./assets/audio/gun_fire.wav");
+  game.load.audio("countDown", "./assets/audio/countdown1.wav");
+  game.load.audio("countDownStart", "./assets/audio/countdown2.wav");
 }
 
 /*
@@ -83,6 +104,11 @@ function create() {
   //created background and make it scroll
   bg = game.add.tileSprite(0, 0, GAME_WIDTH, BG_HEIGHT, "bg");
   bg.autoScroll(BACKGROUND_SCROLL, 0);
+  countDownSprite = game.add.sprite(0, 0, "countDownSprite");
+  countDownSprite.position.x = 370;
+  countDownSprite.position.y = 80;
+  countDownSprite.animations.add("countingDown", [0, 1, 2, 3], FRAME_SPEED / 11, true);
+  countDownSprite.animations.play("countingDown");
 
   //adds arena
   rightRectangle = game.add.tileSprite(RIGHT_RECTANGLE_X, RIGHT_RECTANGLE_Y, ARENA_WIDTH, ARENA_HEIGHT, "rightRectangle");
@@ -113,8 +139,15 @@ function create() {
   music = game.add.audio("music");
   music.play(); //background music
   winAudio = game.add.audio("winAudio");
+  loseAudio = game.add.audio("loseAudio");
   hit = game.add.audio("hit");
   fireworkBang = game.add.audio("fireworkBang");
+  countDown = game.add.audio("countDown");
+  countDownStart = game.add.audio("countDownStart");
+  countDown.play();
+  setTimeout(function() {countDown.play();}, 1000);
+  setTimeout(function() {countDown.play();}, 2000);
+  setTimeout(function() {countDownStart.play();}, 3000);
 
   //win menu
   winBg = game.add.sprite(0, 0, "winBg");
@@ -148,6 +181,7 @@ function create() {
   players[0].scale.x *= SWITCH_DIRECTION;
 }
 
+
 /*
 //has a counter if someone has won
 //stuns characters when counter is reset
@@ -158,12 +192,17 @@ function create() {
 function update() {
   if (winningState === false) {
     //stop the players in stun state 
-    if (updateCount === INITIATE_STUN_COUNT) {
+    if (updateCount === TIMER_STARTS) {
+      initiateTimer = setInterval(startTimer, 1000);
+    }
+    if (updateCount === INITIATE_STUN_COUNT || updateCount === COLLISION_STUN_COUNT) {
       stun();
     }
 
     //characters become unstunned and can move
     else if (updateCount > END_STUN_COUNT) {
+      countDownSprite.animations.stop("countingDown");
+      countDownSprite.kill();
       controls();
     }
     
@@ -183,4 +222,6 @@ function update() {
 }
 
 document.getElementsByClassName("start-button")[0].addEventListener("click", startGame);
+document.getElementsByClassName("instructions-button")[0].addEventListener("click", instructions);
+document.getElementsByClassName("exit-instructions-button")[0].addEventListener("click", exitInstructions);
 document.getElementsByClassName("restart-button")[0].addEventListener("click", restart);
