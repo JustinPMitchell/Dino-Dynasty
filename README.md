@@ -1,6 +1,9 @@
-# King of the Hill
+# Dino Dynasty
 
-Two players try to knock each other out of the ring by bumping into each other
+![picture](./assets/img/dino-dynasty-title-screen.png)
+![picture](./assets/img/dino-dynasty-game-play.png)
+
+Two players try to knock each other out of the ring by bumping and kicking each other using a single keyboard.
 
 ## Technical Requirements
 
@@ -57,6 +60,6 @@ Use semantic markup for HTML and CSS (adhere to best practices)
 ## Acknowledgments
 
 * Special Thanks to Jordan Krissi and Nick Nedev
-* Inspiration came from Mario Party Bumper Balls Game
+* Inspiration came from Mario Party Bumper Balls Game and King of the Hill
 
 
