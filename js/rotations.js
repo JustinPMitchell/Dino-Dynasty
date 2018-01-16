@@ -34,8 +34,8 @@ function scaleRotate() {
 
 
 /*
-//rotates arena right and scales rectangles to appear like a 3d shift
-//shifts foci of ellipse
+//rotates arena right and scales rectangles to appear like a 3d shift right
+//shifts foci of ellipse right
 */  
 function scaleRotateRight() {
   //changes battle arena rotation
@@ -68,6 +68,11 @@ function scaleRotateRight() {
   focusTwo.y += ARENA_CENTER_Y;
 }
 
+/*
+//rotates arena left
+//shifts foci of ellipse left
+//removes rectangles
+*/  
 function rotateLeftWithoutRectangles() {
   //changes battle arena rotation
   arena.rotation += (STAGE_ROTATION * 2);
