@@ -5,8 +5,8 @@
 function scaleRotate() {
   //changes battle arena rotation
   arena.rotation += STAGE_ROTATION;
-  rightRectangle.scale.x /= rectangleScaler;
-  leftRectangle.scale.x /= rectangleScaler;
+  rightRectangle.scale.x /= (rectangleScaler * RIGHT_RECTANGLE_WIDTH_SCALER);
+  leftRectangle.scale.x /= (rectangleScaler * LEFT_RECTANGLE_WIDTH_SCALER);
   rightRectangle.scale.y /= (rectangleScaler * RIGHT_RECTANGLE_HEIGHT_SCALER); //shrinks right rectangle height
   leftRectangle.scale.y *= (rectangleScaler * LEFT_RECTANGLE_HEIGHT_SCALER); //expands left rectangle height
   rectangleScaler += RECTANGLE_SCALER_SCALER;
@@ -40,11 +40,13 @@ function scaleRotate() {
 function scaleRotateRight() {
   //changes battle arena rotation
   arena.rotation -= STAGE_ROTATION;
-  rightRectangle.scale.x *= rectangleScaler * .99955;
+    // rightRectangle.scale.x *= rectangleScaler * .99955;
+  rightRectangle.scale.x *= rectangleScaler;
   leftRectangle.scale.x *= rectangleScaler;
-  rightRectangle.scale.y *= (rectangleScaler * RIGHT_RECTANGLE_HEIGHT_SCALER * .9997); //shrinks right rectangle height
+    // rightRectangle.scale.y *= (rectangleScaler * RIGHT_RECTANGLE_HEIGHT_SCALER * .9997); //shrinks right rectangle height
+  rightRectangle.scale.y *= (rectangleScaler * RIGHT_RECTANGLE_HEIGHT_SCALER); //shrinks right rectangle height
   leftRectangle.scale.y /= (rectangleScaler * LEFT_RECTANGLE_HEIGHT_SCALER); //expands left rectangle height
-  rightRectangle.position.x += .08; //repositions rectangle to overcorrect
+    // rightRectangle.position.x += .08; //repositions rectangle to overcorrect
   rectangleScaler -= RECTANGLE_SCALER_SCALER;
 
   //handles rotation of foci

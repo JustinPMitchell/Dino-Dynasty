@@ -2,6 +2,8 @@ body {
   background: grey;
   text-align: center;
   font-family: 'Gloria Hallelujah', cursive;
+  width: 1000px;
+  margin: 100px auto;
 }
 
 h2 {
@@ -16,8 +18,7 @@ p {
   background-color: white;
   border: 3px solid black;
   position: absolute;
-  margin: 0 10%;
-  width: 1000px;
+  width: 994px;
   height: 20px;
   display: none;
 }
@@ -47,7 +48,7 @@ p {
   background-color: white;
   border: 3px solid black;
   position: absolute;
-  margin: 0 30%;
+  margin: 0 250px;
   width: 500px;
   height: 50px;
   display: none;
@@ -77,7 +78,7 @@ p {
   width: 1000px;
   height: 600px;
   border: 3px solid black;
-  margin: 0 10%;
+/*  margin: 0 10%;*/
   position: absolute;
   overflow: hidden;
   background: url("../assets/img/city.png") top center,
@@ -146,10 +147,9 @@ p {
 }
 
 .winning-menu {
-  width: 1000px;
-  height: 600px;
+  width: 994px;
+  height: 597px;
   border: 3px solid black;
-  margin: 0 10%;
   position: absolute;
   display: none;
 }
@@ -197,14 +197,18 @@ p {
   left: 78%;
   top: 30%;
   font-size: 40px;
+  border-right: 0px;
 }
 
 #gameDiv {
-  margin: 0 10%;
-  border: 3px solid black;
+  width: 1000px;
 }
 
 canvas {   
   display: block;   
   margin: auto;
+}
+
+button:focus {
+    outline: none;
 }

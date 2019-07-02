@@ -32,7 +32,7 @@ function startTimer() {
     clearInterval(rotateStageRight);
   }
   else if (timer === 49) {
-    rotateStageRight = setInterval(scaleRotateRight, 1);
+    rotateStageRight = setInterval(scaleRotateRight, 5);
   }
   else if (timer === 47) {
     clearInterval(rotateStageRight);
